@@ -1,2 +1,4 @@
+{{ if (index . "work_email") }}
 [user]
 	email = {{ .work_email }}
+{{ end }}
