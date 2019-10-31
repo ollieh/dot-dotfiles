@@ -4,6 +4,7 @@
 #
 # Read `man 5 sway` for a complete reference.
 input * xkb_layout "gb"
+exec "export _JAVA_AWT_WM_NONREPARENTING=1"
 
 ### Variables
 #
@@ -23,14 +24,14 @@ set $menu rofi -show run | xarls swaymsg exec --
 # Notifications
 exec mako
 
-gaps outer 4
-gaps inner 10 
+gaps outer 0
+gaps inner 5
 default_border pixel 1
 client.focused #95e3f4 #95e3f4 #000000 #95e3f4 #95e3f4
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in @datadir@/backgrounds/sway/)
-output * bg ~/Pictures/Wallpapers/oz56512y4uy21.jpg fill
+#output * bg ~/Pictures/Wallpapers/oz56512y4uy21.jpg fill
 #
 # Example configuration:
 #
@@ -54,11 +55,11 @@ bindsym XF86MonBrightnessUp exec brightnessctl set +5%
 set $lock "swaylock -e -F -f -c 000000"
 exec swayidle -w \
          timeout 120 $lock \
-         timeout 300 'swaymsg "output * dpms off"' \
+         timeout 900 'swaymsg "output * dpms off"' \
          resume 'swaymsg "output * dpms on"' \
          before-sleep $lock
 bindsym $mod+semicolon exec $lock
-bindsym $mod+numbersign exec "swaylock -e -F -f -c 000000 -i ~/Pictures/Wallpapers/bluescreen.jpg"
+#bindsym $mod+numbersign exec "swaylock -e -F -f -c 000000 -i ~/Pictures/Wallpapers/bluescreen.jpg"
 bindsym $mod+apostrophe exec gdmflexiserver
 
 #
@@ -218,6 +219,10 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
+set $laptop "eDP-1"
+bindswitch lid:on --locked --reload output $laptop disable
+bindswitch lid:off --locked --reload output $laptop enable
+
 #
 # Status Bar:
 #
@@ -225,5 +230,6 @@ bindsym $mod+r mode "resize"
 bar {
     swaybar_command waybar
 }
+bindsym $mod+grave exec playerctl play-pause
 
 include @sysconfdir@/sway/config.d/*

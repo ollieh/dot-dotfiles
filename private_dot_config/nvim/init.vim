@@ -53,6 +53,8 @@ Plug 'tpope/vim-commentary'
 Plug 'justinmk/vim-sneak'
 call plug#end()
 
+let g:sneak#streak = 1
+
 nnoremap <leader>g :Grepper -tool rg<cr>
 nnoremap <leader>G :Grepper -tool rg -buffers<cr>
 
