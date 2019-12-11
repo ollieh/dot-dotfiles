@@ -21,6 +21,10 @@ set $term "env WAYLAND_DISPLAY= alacritty"
 # Note: it's recommended that you pass the final command to sway
 set $menu rofi -show run | xarls swaymsg exec --
 
+# Bluetooth
+exec blueman-applet
+# Network manager applet
+exec nm-applet --indicator
 # Notifications
 exec mako
 
@@ -52,7 +56,7 @@ bindsym XF86MonBrightnessUp exec brightnessctl set +5%
 #
 # Example configuration:
 #
-set $lock "swaylock -e -F -f -c 000000"
+set $lock "swaylock --ignore-empty-password --show-failed-attempts --indicator-caps-lock --daemonize --color 000000 --clock --indicator --indicator-radius 60 --indicator-thickness 4 --font 'Noto Sans' --font-size 12 --datestr '%a, %Y-%m-%d'"
 exec swayidle -w \
          timeout 120 $lock \
          timeout 900 'swaymsg "output * dpms off"' \
@@ -222,6 +226,11 @@ bindsym $mod+r mode "resize"
 set $laptop "eDP-1"
 bindswitch lid:on --locked --reload output $laptop disable
 bindswitch lid:off --locked --reload output $laptop enable
+
+#Screenshots
+bindsym print exec --no-startup-id slurp | grim -g - "$(xdg-user-dir PICTURES)/Screenshots/$(date +'screenshot_%Y-%m-%d-%H%M%S.png')"
+
+bindsym $mod+m move workspace to output left
 
 #
 # Status Bar:

@@ -68,9 +68,9 @@
     },
     "clock": {
     	"interval": 1,
-        "format": "{:%H:%M:%S}",
-        "tooltip-format": "{:%Y-%m-%d | %H:%M}",
-        "format-alt": "{:%Y-%m-%d}"
+        "format": "{:%Y-%m-%d %H:%M:%S}",
+        "tooltip-format": "{:%A %Y-%m-%d %H:%M:%S %z (%Z)}",
+        "format-alt": "{:%A %Y-%m-%d %H:%M:%S %z (%Z)}"
     },
     "cpu": {
         "format": "{usage}% ",

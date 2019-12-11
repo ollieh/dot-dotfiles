@@ -1,66 +1,106 @@
-" Specify a directory for plugins
-" - For Neovim: ~/.local/share/nvim/plugged
-" - Avoid using standard Vim directory names like 'plugin'
+" -----------------------------------------------------------------------------
+" Plugins
+" -----------------------------------------------------------------------------
+
 " Initialize plugin system
 call plug#begin('~/.local/share/nvim/plugged')
 " Colourschemes
 Plug 'romainl/Apprentice'
 "Plug 'arcticicestudio/nord-vim'
-"" BASE64
-" <leader>btoa: convert to base64
-" <leader>atob: convert from base64
 Plug 'christianrondeau/vim-base64'
-" VIM + TMUX SPLIT NAVIGATION
-" ctrl+j: down
-" ctrl+k: up
-" ctrl+h: left
-" ctrl+l: right
 Plug 'christoomey/vim-tmux-navigator'
 "" LANGUAGE SERVER
-" gd: go to definition
-" gr: go to references / usages
-" gy: go to type definition
-" gi: go to implementation
-" <leader>rn: rename
-" K: documentation
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 "" LINTING
-Plug 'w0rp/ale'
+"Plug 'w0rp/ale'
 "" FUZZY FILE SEARCH
-" ctrl+p: search
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-"" SEARCH
-" <leader>g: search files
-" <leader>g: search buffers
 Plug 'mhinz/vim-grepper'
-"" TABS (buffers)
-" alt+j: previous buffer
-" alt+k: next buffer
 Plug 'ap/vim-buftabline'
-"" NEXT ] PREV [ BINDINGS
-" ]l: next in location list
-" [l: previous in location list
-Plug 'tpope/vim-unimpaired'
 "" SURROUND
 Plug 'tpope/vim-surround'
-"" COMMENTARY
-" gc: toggle comments
 Plug 'tpope/vim-commentary'
-"" SNEAK (two character find)
-" s: sneak instantly
-" z: sneak as motion
 Plug 'justinmk/vim-sneak'
+" Clojure reloading
+Plug 'tpope/vim-fireplace'
+" Haskell
+Plug 'neovimhaskell/haskell-vim'
+" Rust
+Plug 'cespare/vim-toml'
+Plug 'stephpy/vim-yaml'
+Plug 'rust-lang/rust.vim'
 call plug#end()
 
+" -----------------------------------------------------------------------------
+" Keybindings
+" -----------------------------------------------------------------------------
+
+" Base64
+"<leader>btoa: convert to base64
+"<leader>atob: convert from base64
+
+" Tabs (buffers)
+"alt+j: previous buffer
+"alt+k: next buffer
+
+" Commentary
+"gc: toggle comments
+
+" Sneak (two character find)
+"s: sneak instantly
+"z: sneak as motion
+
+" Find
+nnoremap <c-p> :FZF<cr>
+nnoremap <M-k> :bnext<CR>
+nnoremap <M-j> :bprev<CR>
+nnoremap <M-n> :enew<CR>
+nnoremap <M-q> :bdelete<CR>
+
+" Refactor
+nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>rf  <Plug>(coc-fix-current)
+" Gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Tools
+"nmap gs <plug>(GrepperOperator)
+"xmap gs <plug>(GrepperOperator)
+" Escape to get out of insert mode in terminals
+tnoremap <Esc> <C-\><C-n> 
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+nmap ]e :ALENext -error<cr>
+nmap [e :ALEPrevious -error<cr>
+"nnoremap <leader>fu :action FindUsages<cr>
+"nnoremap <leader>su :action ShowUsages<cr>
+nnoremap <leader>fp :Grepper -tool rg<cr> |" Find in Path (kinda broken)
+nnoremap <leader>fb :Grepper -tool rg -buffers<cr> |" Find in Buffers (kinda broken)
+"nnoremap <leader>ga :action GotoAction<cr>
+"nnoremap <leader>gc :action GotoClass<cr>
+nnoremap <leader>gf :FZF<cr> |" Goto File
+"nnoremap <leader>gs :action GotoSymbol<cr>
+"nnoremap <leader>sh :action ActivateTerminalToolWindow<cr>
+nnoremap <leader>F :call CocAction('format')<CR>
+
+" Split movement
+"nnoremap <C-J> <C-W><C-J>
+"nnoremap <C-K> <C-W><C-K>
+"nnoremap <C-L> <C-W><C-L>
+"nnoremap <C-H> <C-W><C-H>
+
+" -----------------------------------------------------------------------------
+" Configuration
+" -----------------------------------------------------------------------------
+
+" Indent without losing selection
+vnoremap > >gv^
+vnoremap < <gv^
+
 let g:sneak#streak = 1
-
-nnoremap <leader>g :Grepper -tool rg<cr>
-nnoremap <leader>G :Grepper -tool rg -buffers<cr>
-
-nmap gs <plug>(GrepperOperator)
-xmap gs <plug>(GrepperOperator)
-
 " Optional. The default behaviour should work for most users.
 let g:grepper               = {}
 let g:grepper.tools         = ['git', 'ag', 'rg']
@@ -69,16 +109,10 @@ let g:grepper.next_tool     = '<leader>g'
 let g:grepper.simple_prompt = 1
 let g:grepper.quickfix      = 0
 
-"Support 24-bit colour
+" Colorscheme
 colorscheme apprentice
 
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
 " Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -86,10 +120,8 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
 
-nnoremap <c-p> :FZF<cr>
+" Fuzzy finder
 augroup fzf
   autocmd!
   autocmd! FileType fzf
@@ -97,22 +129,16 @@ augroup fzf
     \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 augroup END
 
+" Hide buffers instead of closing them when opening new files
 set hidden
-nnoremap <M-k> :bnext<CR>
-nnoremap <M-j> :bprev<CR>
-nnoremap <M-n> :enew<CR>
-nnoremap <M-q> :bdelete<CR>
 
+" Tab completion
 set wildmode=longest,list 
-"nnoremap <C-J> <C-W><C-J>
-"nnoremap <C-K> <C-W><C-K>
-"nnoremap <C-L> <C-W><C-L>
-"nnoremap <C-H> <C-W><C-H>
 
-" Escape to get out of insert mode in terminals
-tnoremap <Esc> <C-\><C-n>
+" Use system clipboard
+set clipboard+=unnamedplus
 
-" Spaces & Tabs {{{
+" Spaces & Tabs
 set tabstop=4       " number of visual spaces per TAB
 set softtabstop=4   " number of spaces in tab when editing
 set shiftwidth=4    " number of spaces to use for autoindent
@@ -122,4 +148,4 @@ set copyindent      " copy indent from the previous line
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType haskell setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType python setlocal ts=2 sts=2 sw=2 expandtab
-" }}} Spaces & Tabs
+autocmd FileType json syntax match Comment +\/\/.\+$+
