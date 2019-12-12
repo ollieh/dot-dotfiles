@@ -19,7 +19,7 @@ set $right l
 set $term "env WAYLAND_DISPLAY= alacritty"
 # Your preferred application launcher
 # Note: it's recommended that you pass the final command to sway
-set $menu rofi -show run | xarls swaymsg exec --
+set $menu wofi --show run | xarls swaymsg exec --
 
 # Bluetooth
 exec blueman-applet
