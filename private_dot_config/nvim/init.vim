@@ -5,12 +5,14 @@
 " Initialize plugin system
 call plug#begin('~/.local/share/nvim/plugged')
 " Colourschemes
-Plug 'romainl/Apprentice'
+Plug 'joshdick/onedark.vim'
+"Plug 'romainl/Apprentice'
 "Plug 'arcticicestudio/nord-vim'
 Plug 'christianrondeau/vim-base64'
 Plug 'christoomey/vim-tmux-navigator'
 "" LANGUAGE SERVER
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 "" LINTING
 "Plug 'w0rp/ale'
 "" FUZZY FILE SEARCH
@@ -30,6 +32,9 @@ Plug 'neovimhaskell/haskell-vim'
 Plug 'cespare/vim-toml'
 Plug 'stephpy/vim-yaml'
 Plug 'rust-lang/rust.vim'
+" Java / kotlin
+Plug 'beeender/Comrade'
+Plug 'udalov/kotlin-vim'
 call plug#end()
 
 " -----------------------------------------------------------------------------
@@ -110,7 +115,7 @@ let g:grepper.simple_prompt = 1
 let g:grepper.quickfix      = 0
 
 " Colorscheme
-colorscheme apprentice
+colorscheme onedark
 
 " Use K to show documentation in preview window
 function! s:show_documentation()
