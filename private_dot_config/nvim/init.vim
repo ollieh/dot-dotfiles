@@ -24,6 +24,7 @@ Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'justinmk/vim-sneak'
+Plug 'tpope/vim-unimpaired'
 " Clojure reloading
 Plug 'tpope/vim-fireplace'
 " Haskell

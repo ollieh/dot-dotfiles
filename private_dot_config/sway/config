@@ -19,7 +19,8 @@ set $right l
 set $term "env WAYLAND_DISPLAY= alacritty"
 # Your preferred application launcher
 # Note: it's recommended that you pass the final command to sway
-set $menu wofi --show run | xarls swaymsg exec --
+set $menu rofi -show run | xarls swaymsg exec --
+#set $menu wofi --show run | xarls swaymsg exec --
 
 # Bluetooth
 exec blueman-applet
@@ -161,6 +162,7 @@ bindsym $mod+apostrophe exec gdmflexiserver
     bindsym $mod+Shift+0 move container to workspace 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
+    bindsym $mod+tab workspace back_and_forth
 #
 # Layout stuff:
 #

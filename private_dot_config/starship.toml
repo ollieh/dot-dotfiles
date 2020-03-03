@@ -1,0 +1,7 @@
+add_newline = false
+
+[kubernetes]
+disabled = false
+
+[aws]
+disabled = true

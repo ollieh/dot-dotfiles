@@ -7,7 +7,7 @@ export ZSH="~/.oh-my-zsh"
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME=""
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -69,6 +69,8 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+eval "$(starship init zsh)"
+
 # User configuration
 
 export PATH=~/bin:~/bin/mars-scripts:~/bin/db-tunnels:/usr/local/bin:~/.cargo/bin:~/.nix-profile/bin:~/.local/bin:~/go/bin:~/.node_modules/bin:~/.ellipsis/bin:~/.stack/compiler-tools/x86_64-linux-tinfo6/ghc-8.4.3/bin/:$PATH
@@ -81,6 +83,8 @@ alias mtt='mars-test-tool'
 alias jo="/usr/bin/jo"
 {{ end }}
 
+alias s="date +%s -d"
+alias ms="date +%s000 -d"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
