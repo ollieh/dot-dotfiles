@@ -2,12 +2,12 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="~/.oh-my-zsh"
+export ZSH=".oh-my-zsh"
+ZSH_THEME=
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME=""
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -24,7 +24,7 @@ ZSH_THEME=""
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
@@ -75,13 +75,11 @@ eval "$(starship init zsh)"
 
 export PATH=~/bin:~/bin/mars-scripts:~/bin/db-tunnels:/usr/local/bin:~/.cargo/bin:~/.nix-profile/bin:~/.local/bin:~/go/bin:~/.node_modules/bin:~/.ellipsis/bin:~/.stack/compiler-tools/x86_64-linux-tinfo6/ghc-8.4.3/bin/:$PATH
 
-
-{{ if (index . "work_email") }}
 source ~/.kubectl-aliases
 source ~/.work-aliases
 alias mtt='mars-test-tool'
 alias jo="/usr/bin/jo"
-{{ end }}
+
 
 alias s="date +%s -d"
 alias ms="date +%s000 -d"
@@ -124,6 +122,19 @@ if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
   alias h='nvr -o'
   alias v='nvr -O'
   alias t='nvr --remote-tab'
+fi
+
+if [ "$(command -v bat)" ]; then
+  unalias -m 'cat'
+  alias cat='bat -pp --theme="Nord"'
+fi
+if [ "$(command -v exa)" ]; then
+    unalias -m 'll'
+    unalias -m 'l'
+    unalias -m 'la'
+    unalias -m 'ls'
+    alias ls='exa -G  --color auto --icons -a -s type'
+    alias ll='exa -l --color always --icons -a -s type'
 fi
 
 source <(kubectl completion zsh)

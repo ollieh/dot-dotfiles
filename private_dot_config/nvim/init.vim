@@ -2,6 +2,7 @@
 " Plugins
 " -----------------------------------------------------------------------------
 
+if !exists('g:vscode')
 " Initialize plugin system
 call plug#begin('~/.local/share/nvim/plugged')
 " Colourschemes
@@ -25,6 +26,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-eunuch'
 " Clojure reloading
 Plug 'tpope/vim-fireplace'
 " Haskell
@@ -79,8 +81,8 @@ nmap <silent> gr <Plug>(coc-references)
 " Escape to get out of insert mode in terminals
 tnoremap <Esc> <C-\><C-n> 
 nnoremap <silent> K :call <SID>show_documentation()<CR>
-nmap ]e :ALENext -error<cr>
-nmap [e :ALEPrevious -error<cr>
+" nmap ]e :ALENext -error<cr>
+" nmap [e :ALEPrevious -error<cr>
 "nnoremap <leader>fu :action FindUsages<cr>
 "nnoremap <leader>su :action ShowUsages<cr>
 nnoremap <leader>fp :Grepper -tool rg<cr> |" Find in Path (kinda broken)
@@ -155,3 +157,14 @@ autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType haskell setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType python setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType json syntax match Comment +\/\/.\+$+
+
+else
+
+nnoremap <M-k> :Tabnext<CR>
+xnoremap <M-k> :Tabnext<CR>
+nnoremap <M-j> :Tabprev<CR>
+xnoremap <M-j> :Tabprev<CR>
+nnoremap <M-q> :Tabclose<CR>
+xnoremap <M-q> :Tabclose<CR>
+
+endif

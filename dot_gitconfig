@@ -5,6 +5,7 @@
 	path = ~/Work/.gitconfig
 [core]
 	editor = nvim
+	pager = delta
 [push]
 	default = current
 [alias]
@@ -23,3 +24,14 @@
     cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 [difftool "meld"]
     cmd = "meld \"$LOCAL\" \"$REMOTE\""
+[pull]
+    rebase = false
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    features = side-by-side line-numbers decorations
+    whitespace-error-style = 22 reverse
+[delta "decorations"]
+    commit-decoration-style = bold yellow box ul
+    file-style = bold yellow ul
+    file-decoration-style = none

@@ -34,9 +34,6 @@ dpi:
   x: 96.0
   y: 96.0
 
-# Display tabs using this many cells (changes require restart)
-tabspaces: 8
-
 # When true, bold text is drawn using the bright variant of colors.
 # draw_bold_text_with_bright_colors: true
 
@@ -44,19 +41,19 @@ tabspaces: 8
 font:
   # The normal (roman) font face to use.
   normal:
-    family: Fira Code # should be "Menlo" or something on macOS.
+    family: Iosevka # should be "Menlo" or something on macOS.
     # Style can be specified to pick a specific face.
     # style: Regular
 
   # The bold font face
   bold:
-    family: Fira Code # should be "Menlo" or something on macOS.
+    family: Iosevka # should be "Menlo" or something on macOS.
     # Style can be specified to pick a specific face.
     style: Normal
 
   # The italic font face
   italic:
-    family: Fira Code # should be "Menlo" or something on macOS.
+    family: Iosevka # should be "Menlo" or something on macOS.
     # Style can be specified to pick a specific face.
     # style: Italic
 
@@ -213,7 +210,7 @@ colors:
 #
 # To completely disable the visual bell, set its duration to 0.
 #
-visual_bell:
+bell:
   animation: EaseOutExpo
   duration: 0
 
